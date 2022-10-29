@@ -1,0 +1,129 @@
+.info-legend
+  {
+    display: flex;
+    
+    div {
+      flex-grow: 1;
+      text-align: center;
+      font-family: 'Cabin', sans-serif;
+      font-size: 1.5rem;
+      color: white;
+      padding: 0.5rem 0.1rem;
+
+      .popup1,
+      .popup2,
+      .popup3,
+      .popup4,
+      .popup5,
+      .popup6
+       {
+        position: fixed;
+        top: 40%;
+        max-width: 35rem;
+        border-radius: 2rem;
+        opacity:0;
+        left: 45%;
+        padding: 2rem 4rem;
+        transition:all 1s;
+        -webkit-transition:all 1s;
+      }
+    }
+  }
+
+ 
+
+  .popup0 {
+    display: none;
+  }
+  .popup1 {
+    background-color: rgb(0,153,102);
+  }
+  .popup2 {
+    background-color: rgb(255,222,51);
+  }
+  .popup3 {
+    background-color:rgb(255,153,51);
+  }
+  .popup4 {
+    background-color: rgb(204,0,51);
+  }
+  .popup5 {
+    background-color: rgb(102,0,153);
+  }
+  .popup6 {
+    background-color:rgb(126,0,35);
+  }
+  
+  /* button */
+  .button{
+   text-align:center;
+   padding:4rem;
+   font-size:33remx;
+   
+   //border-radius:100px;
+   
+    transition:all 1s;
+    -webkit-transition:all 1s;
+  }
+  
+  .button:hover{
+    outline: #1fd6b3 3px solid;
+    cursor:pointer;
+  }
+  .button:first-child{
+    cursor: none;
+    outline: none;
+  }
+  
+  .button:hover .popup1,
+  .button:hover .popup2,
+  .button:hover .popup3,
+  .button:hover .popup4,
+  .button:hover .popup5,
+  .button:hover .popup6
+  {
+    
+    margin-top:-8%;
+    opacity:1;
+    z-index: 3000;
+  }
+
+  @media screen and (min-width: 500px) and (max-width: 599px) {
+    .info-legend
+  {
+    div {
+      font-size: 1rem;
+
+      .popup1,
+      .popup2,
+      .popup3,
+      .popup4,
+      .popup5,
+      .popup6
+       {
+        max-width: 25rem;
+        left: 20%;
+       }
+    }
+  }
+}
+
+@media screen and (min-width: 600px) and (max-width: 1024px) {
+  .info-legend
+{
+  div {
+    font-size: 1rem;
+    
+    .popup1,
+    .popup2,
+    .popup3,
+    .popup4,
+    .popup5,
+    .popup6
+     {
+      max-width: 25rem;
+      left: 35%;
+     }
+  }
+}
+}
