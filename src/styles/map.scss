@@ -1,0 +1,46 @@
+#mapid {
+    width: 80rem;
+    height: 40rem;
+}
+
+.map-container {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    width: fit-content;
+    height: fit-content; 
+    
+    .map {
+        border: solid rgb(184, 179, 179) 0.2rem;
+    }
+}
+
+.focused {
+    fill: rgb(195, 62, 62),
+}
+
+@media screen and (min-width: 600px) and (max-width: 1048px) {
+    #mapid {
+        // min-width: 50rem;
+        width: 100%;
+        height: 38rem;
+    }
+    .map-container {
+        flex-grow: 1;
+        width: 100%;
+    }
+}
+
+@media screen and (min-width: 500px) and (max-width: 599px) {
+    .central-container {
+        flex-direction: column;
+    }
+    
+    #mapid {
+        width: 100%;
+        height: 38rem;
+    }
+    .map-container {
+        flex-grow: 1;
+    }
+}

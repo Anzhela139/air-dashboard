@@ -1,0 +1,17 @@
+.search-results {
+    font-size: 120%;
+    min-width: 30px;
+    text-align: center;
+    position: relative;
+}
+
+.output-search {
+    top: 67px;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.9);
+    z-index: 5;
+}
+
+.output-search .result {
+
+}

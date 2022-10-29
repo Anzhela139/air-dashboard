@@ -1,0 +1,29 @@
+header {
+  min-height: 8rem;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  padding: 1rem;
+  background-position: 5% 25%;
+  right: 3rem;
+  border: solid #b8b3b3 0.2rem; }
+  header h1 {
+    font-family: 'Fredericka the Great', sans-serif;
+    font-size: 3rem;
+    font-weight: 400;
+    color: white; }
+
+@media screen and (min-width: 500px) and (max-width: 1048px) {
+  header {
+    min-height: 2.5rem;
+    border-bottom: solid #b8b3b3 0.2rem;
+    border-top: none;
+    border-left: none;
+    border-right: none; }
+    header h1 {
+      font-size: 2rem; }
+    header div .wrapper {
+      display: flex;
+      justify-content: space-between;
+      align-content: flex-start; } }
+
+/*# sourceMappingURL=header.css.map */

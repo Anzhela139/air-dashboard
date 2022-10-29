@@ -1,0 +1,22 @@
+import './styles/footer.css';
+import './styles/header.css';
+import './styles/main.css';
+import './styles/map.css';
+import './styles/map-legend.css';
+import myHeader from './modules/header';
+import myFooter from './modules/footer';
+import myBody from './modules/body';
+import myMap from './modules/map';
+import Table from './modules/table';
+import Chart from './modules/chart.js';
+import Search from './modules/search.js';
+import mapLegend from './modules/map-legend';
+
+myHeader.init();
+myBody.init();
+myFooter.init();
+myMap.init();
+mapLegend.legend();
+Table.init();
+Chart.init();
+Search.init();

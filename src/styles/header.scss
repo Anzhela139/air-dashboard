@@ -1,0 +1,44 @@
+@mixin h1 {
+  font: {
+      family: 'Fredericka the Great', sans-serif;
+      size: 3rem;
+      weight: 400;
+  }
+  color: white;
+}
+
+header {
+  min-height: 8rem;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  padding: 1rem;
+  background-position: 5% 25%;
+  right: 3rem;
+  border: solid rgb(184, 179, 179) 0.2rem;
+
+  h1 {
+    @include h1;
+  }
+}
+
+@media screen and (min-width: 500px) and (max-width: 1048px) {
+  header {
+      min-height: 2.5rem;
+      border-bottom: solid rgb(184, 179, 179) 0.2rem;
+      border-top: none;
+      border-left: none;
+      border-right: none;
+      
+      h1 {
+        font-size: 2rem;
+      }
+
+      div .wrapper {
+        display: flex;
+        justify-content: space-between;
+        align-content: flex-start;
+      }
+  }
+}
+
+

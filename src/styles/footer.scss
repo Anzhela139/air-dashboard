@@ -1,0 +1,69 @@
+@mixin ref {
+    font: {
+        family: 'Cabin', sans-serif;
+        size: 1rem;
+        weight: 400;
+    }
+    color: white;
+}
+
+footer {
+    align-self: flex-end;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    padding: 1rem;
+    background-position: 5% 45%;
+    border: solid rgb(184, 179, 179) 0.2rem;
+
+    .wrapper-footer {
+        flex-direction: row;
+    }
+
+    .info-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        a, .year {
+            @include ref;
+            padding-top: 1rem;
+        }
+    }
+
+    .logo-container {
+        
+        a {
+            @include ref;
+            padding-top: 1rem;
+        }
+    }
+}
+
+@media screen and (min-width: 500px) and (max-width: 1048px) {
+    footer {
+        padding: 0.8rem;
+        border-top: solid rgb(184, 179, 179) 0.2rem;
+        border-bottom: none;
+        border-left: none;
+        border-right: none;
+        .wrapper-footer {
+            flex-direction: row;
+            .info-container {
+                a, .year {
+                    padding-top: 0.8rem;
+                    font-size: 0.8rem;
+                }
+            }
+
+            .logo-container {
+        
+                a {
+                    padding-top: 0.8rem;
+                    font-size: 0.8rem;
+                }
+            }
+        }
+    }
+}
