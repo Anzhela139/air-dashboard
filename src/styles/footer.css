@@ -12,8 +12,8 @@ footer {
     flex-direction: row; }
   footer .info-container {
     display: flex;
-    flex-direction: column;
-    justify-content: flex-end; }
+    justify-content: space-between;
+    align-items: center; }
     footer .info-container a, footer .info-container .year {
       font-family: 'Cabin', sans-serif;
       font-size: 1rem;

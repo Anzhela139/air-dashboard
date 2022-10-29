@@ -7,7 +7,6 @@ export default {
     personalReference1: null,
     personalReference2: null,
     year: null,
-    logoContainer: null,
     logo: null,
     schoolReference: null,
   },
@@ -19,7 +18,6 @@ export default {
     this.elements.personalReference2 = document.createElement('a');
     this.elements.year = document.createElement('p');
     this.elements.year.textContent = '2020';
-    this.elements.logoContainer = document.createElement('div');
     this.elements.logo = document.createElement('img');
     this.elements.schoolReference = document.createElement('a');
     // добавляем классы и атрибуты
@@ -31,7 +29,6 @@ export default {
     this.elements.personalReference1.setAttribute('href', 'https://github.com/little-plumelet');
     this.elements.personalReference2.setAttribute('href', 'https://github.com/anzhelaAbitova');
     this.elements.year.classList.add('year');
-    this.elements.logoContainer.classList.add('logo-container');
     this.elements.logo.classList.add('logo');
     this.elements.schoolReference.classList.add('school-reference');
     this.elements.schoolReference.setAttribute('href', 'https://rs.school/js/');
@@ -44,14 +41,10 @@ export default {
     const footerContent = document.querySelector('footer');
     footerContent.appendChild(this.elements.wrapperFooter);
     this.elements.wrapperFooter.appendChild(this.elements.infoContainer);
-    this.elements.wrapperFooter.appendChild(this.elements.logoContainer);
     this.elements.infoContainer.appendChild(this.elements.personalReference1);
     this.elements.infoContainer.appendChild(this.elements.personalReference2);
     this.elements.infoContainer.appendChild(this.elements.year);
-    this.elements.logoContainer.appendChild(this.elements.logo);
-    this.elements.logoContainer.appendChild(this.elements.schoolReference);
 
     const img = document.querySelector('footer');
-    img.style.backgroundImage = 'url("https://4.downloader.disk.yandex.ru/preview/76029d2ecead2c3166f7b4d102330586ba6955740fcfa9a8a3a008b19fa50567/inf/otX4tw_aApzMR5vKZIuoIZT5bEE_5vuydbpDEgBTi4WvwTSarH1XhyJXC2sNM9CseCizLmyOkl9eDJCbN0uRIg%3D%3D?uid=92464393&filename=thunder.jpg&disposition=inline&hash=&limit=0&content_type=image%2Fjpeg&owner_uid=92464393&tknv=v2&size=1841x920")';
   },
 };

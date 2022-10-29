@@ -28,6 +28,5 @@ export default {
     this.elements.centralContainer.appendChild(this.elements.mapContainer);
     this.elements.centralContainer.appendChild(this.elements.bottomContainer);
     const bodyImg = document.querySelector('body');
-    bodyImg.style.backgroundImage = 'url("https://4.downloader.disk.yandex.ru/preview/59bb6df28cc9cdf751282c1297ecf3649300ac79d2eaa8cbbf0e59cdf5ef5d93/inf/hkuY32pFS-S6gqiuR6PNWjMIJUEXhvyxCuvRTaqYC53Pfy1emPG76askoHaoqJwG9mYtsXXH3vJS19rEIR9xKg%3D%3D?uid=92464393&filename=clouds-1.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=92464393&tknv=v2&size=1841x977")';
   },
 };
