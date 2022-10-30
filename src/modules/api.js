@@ -29,7 +29,7 @@ class Api {
         try {
             //const url = 'https://api.waqi.info/map/bounds/?latlng=0,0.091230,90,180.784382&token=9120f123f86a8763aaf5c82d32ce313797553c24';
             //const response = await fetch('https://api.waqi.info/map/bounds/?latlng=0,0.091230,90,180.784382&token=9120f123f86a8763aaf5c82d32ce313797553c24');
-            const response = await fetch('./api-waqi.json');
+            const response = await fetch('src/modules/api-waqi.json');
             const body = await response.json();
             return body.data;
         }
@@ -109,8 +109,8 @@ class Api {
             //const url = `http://api.openweathermap.org/data/2.5/air_pollution/history?lat=${lat}&lon=${lon}&start=${startTimestamp}&end=${endTimestamp}&appid=3368d25e656a521f14b4de50a62fbd93`;
             const endTimestamp = + new Date();
             const startTimestamp = endTimestamp - 259200;
-            let response = await fetch(`http://api.openweathermap.org/data/2.5/air_pollution/history?lat=${lat}&lon=${lon}&start=${startTimestamp}&end=${endTimestamp}&appid=3368d25e656a521f14b4de50a62fbd93`);
-            if (!response  || response.status != 'ok') response = await fetch('./api-history.json');
+            let response = await fetch(`https://api.openweathermap.org/data/2.5/air_pollution/history?lat=${lat}&lon=${lon}&start=${startTimestamp}&end=${endTimestamp}&appid=3368d25e656a521f14b4de50a62fbd93`);
+            if (!response  || response.status != 'ok') response = await fetch('src/modules/api-history.json');
             const body = await response.json();
             return body;
         }
