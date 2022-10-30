@@ -1,6 +1,6 @@
 # air-dashboard
 
-Приложение, покзывающее уровень загрязнения воздуха
+Приложение, показывающее уровень загрязнения воздуха
 
 [Demo](https://anzhelaabitova.github.io/air-dashboard/)
 
