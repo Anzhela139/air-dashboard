@@ -48,6 +48,21 @@ body {
     grid-template-rows: 43rem 25rem; 
 }
 
+.leaflet-control-attribution,
+.leaflet-control {
+    background-color: transparent;
+    color: transparent;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.leaflet-control-attribution svg,
+.leaflet-control svg,
+.leaflet-control-attribution svg path,
+.leaflet-control svg path {
+    fill: transparent !important;
+}
+
 @media screen and (min-width: 500px) and (max-width: 1048px) {
     .wrapper {
         max-width: 100%;
