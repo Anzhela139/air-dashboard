@@ -33,7 +33,7 @@ function resetHighlight(e) {
 }
 
 function onEachFeature(feature, layer) {
-  layer.bindPopup(`<p> ${feature.properties.name} </p> <img src="https://www.countryflags.io/${feature.properties.iso}/shiny/32.png">`);
+  layer.bindPopup(`<p> ${feature.properties.name} </p>`);
   layer.on({
     mouseover: hightlightFeature,
     mouseout: resetHighlight,

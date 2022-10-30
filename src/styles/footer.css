@@ -16,6 +16,7 @@ footer .info-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 100%;
 }
 footer .info-container a, footer .info-container .year {
   font-family: "Cabin", sans-serif;
