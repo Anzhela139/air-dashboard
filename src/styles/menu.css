@@ -1,9 +1,10 @@
 li {
-  font-family: 'Cabin', sans-serif;
+  font-family: "Cabin", sans-serif;
   font-size: 2.5rem;
   margin: 2rem 0 2rem 4rem;
   color: white;
-  cursor: pointer; }
+  cursor: pointer;
+}
 
 .hidden-menu {
   display: block;
@@ -17,13 +18,15 @@ li {
   height: 100%;
   top: 0;
   right: -32rem;
-  transition: right .5s;
+  transition: right 0.5s;
   z-index: 2;
   transform: translateZ(0);
-  backface-visibility: hidden; }
+  backface-visibility: hidden;
+}
 
 .hidden-menu-ticker {
-  display: none; }
+  display: none;
+}
 
 .btn-menu {
   color: #fff;
@@ -31,40 +34,48 @@ li {
   padding: 0.7rem;
   position: fixed;
   cursor: pointer;
-  transition: left .23s;
+  transition: left 0.23s;
   z-index: 1100;
   width: 3.5rem;
   transform: translateZ(0);
-  backface-visibility: hidden; }
+  backface-visibility: hidden;
+}
 
 .btn-menu span {
   display: block;
   height: 3px;
   background-color: #fff;
   margin: 5px 0 0;
-  transition: all .1s linear .23s;
-  position: relative; }
+  transition: all 0.1s linear 0.23s;
+  position: relative;
+}
 
 .btn-menu span.first {
-  margin-top: 0; }
+  margin-top: 0;
+}
 
 .hidden-menu-ticker:checked ~ .hidden-menu {
   right: 0;
   padding-top: 8rem;
-  z-index: 1000; }
+  z-index: 1000;
+}
 
 .hidden-menu-ticker:checked ~ .btn-menu span.first {
   transform: rotate(45deg);
-  top: 8px; }
+  top: 8px;
+}
 
 .hidden-menu-ticker:checked ~ .btn-menu span.second {
-  opacity: 0; }
+  opacity: 0;
+}
 
 .hidden-menu-ticker:checked ~ .btn-menu span.third {
   transform: rotate(-45deg);
-  top: -8px; }
+  top: -8px;
+}
 
 .activated {
-  text-decoration: underline; }
+  text-decoration: underline;
+}
 
 /*# sourceMappingURL=menu.css.map */

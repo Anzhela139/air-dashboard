@@ -7,40 +7,50 @@ footer {
   background-size: 100%;
   padding: 1rem;
   background-position: 5% 45%;
-  border: solid #b8b3b3 0.2rem; }
-  footer .wrapper-footer {
-    flex-direction: row; }
-  footer .info-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center; }
-    footer .info-container a, footer .info-container .year {
-      font-family: 'Cabin', sans-serif;
-      font-size: 1rem;
-      font-weight: 400;
-      color: white;
-      padding-top: 1rem; }
-  footer .logo-container a {
-    font-family: 'Cabin', sans-serif;
-    font-size: 1rem;
-    font-weight: 400;
-    color: white;
-    padding-top: 1rem; }
+  border: solid rgb(184, 179, 179) 0.2rem;
+}
+footer .wrapper-footer {
+  flex-direction: row;
+}
+footer .info-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+footer .info-container a, footer .info-container .year {
+  font-family: "Cabin", sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  color: white;
+  padding-top: 1rem;
+}
+footer .logo-container a {
+  font-family: "Cabin", sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  color: white;
+  padding-top: 1rem;
+}
 
 @media screen and (min-width: 500px) and (max-width: 1048px) {
   footer {
     padding: 0.8rem;
-    border-top: solid #b8b3b3 0.2rem;
+    border-top: solid rgb(184, 179, 179) 0.2rem;
     border-bottom: none;
     border-left: none;
-    border-right: none; }
-    footer .wrapper-footer {
-      flex-direction: row; }
-      footer .wrapper-footer .info-container a, footer .wrapper-footer .info-container .year {
-        padding-top: 0.8rem;
-        font-size: 0.8rem; }
-      footer .wrapper-footer .logo-container a {
-        padding-top: 0.8rem;
-        font-size: 0.8rem; } }
+    border-right: none;
+  }
+  footer .wrapper-footer {
+    flex-direction: row;
+  }
+  footer .wrapper-footer .info-container a, footer .wrapper-footer .info-container .year {
+    padding-top: 0.8rem;
+    font-size: 0.8rem;
+  }
+  footer .wrapper-footer .logo-container a {
+    padding-top: 0.8rem;
+    font-size: 0.8rem;
+  }
+}
 
 /*# sourceMappingURL=footer.css.map */

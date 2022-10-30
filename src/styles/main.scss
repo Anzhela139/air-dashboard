@@ -50,10 +50,10 @@ body {
 
 .leaflet-control-attribution,
 .leaflet-control {
-    background-color: transparent;
-    color: transparent;
-    opacity: 0;
-    visibility: hidden;
+    background-color: transparent !important;
+    color: transparent !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
 }
 
 .leaflet-control-attribution svg,
