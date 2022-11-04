@@ -9,7 +9,7 @@ import myFooter from './modules/footer';
 import myBody from './modules/body';
 import myMap from './modules/map';
 import Table from './modules/table';
-import Chart from './modules/chart.js';
+import AirChart from './modules/chart.js';
 import Search from './modules/search.js';
 import mapLegend from './modules/map-legend';
 import Api from './modules/api';
@@ -26,12 +26,13 @@ class AirDashboard {
         myHeader.init();
         myBody.init();
         myFooter.init();
-        myMap.init();
+        console.log(this.api)
+        new myMap();
         mapLegend.legend();
         Table.init(this.api);
-        Chart.init(this.api);
+        new AirChart(this.api);
         Search.init(this.api);
-        
+
         setTimeout(() => document.querySelector('.loader').remove(), 5000);
     }
 }

@@ -1,4 +1,5 @@
 import { makeElem, colorize, } from './utils.js';
+import { SEARCH_URL, STATION_URL } from './constans.js';
 import './../styles/search.css';
 
 // по мотивам https://aqicn.org/json-api/demo/
@@ -6,7 +7,7 @@ const search = async (keyword, output, api) => {
     output.innerHTML = '<h2>Search results:</h2>';
     output.appendChild(makeElem('div', '', 'Loading...'));
     output.appendChild(makeElem('div', ['cp-spinner', 'cp-meter']));
-    const result = await api.getSearchInfo(keyword);
+    const result = await api.wrapFetchCall(SEARCH_URL(keyword));
     output.innerHTML = '<h2>Search results :</h2>';
     console.log(result)
     if (!result || result.status != "ok") {
@@ -41,7 +42,7 @@ const showStation = async (station, output) => {
   output.innerHTML = '<h2>Pollutants & Weather conditions:</h2>';
   output.appendChild(makeElem('div', '', 'Loading...'));
   output.appendChild(makeElem('div', ['cp-spinner', 'cp-meter']));
-  const result = await this.elements.api.getStation(station.uid);
+  const result = await this.elements.api.wrapFetchCall(STATION_URL(station.uid));
  
       output.innerHTML = '<h2>Pollutants & Weather conditions:</h2>';
       if (!result || result.status != 'ok') {

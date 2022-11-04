@@ -1,17 +1,13 @@
 import { sortObj, filterArr } from './utils.js';
-
-const accessToken = 'pk.eyJ1IjoiYW56aGVsYTEzOSIsImEiOiJja2lzbjVobGkwZ2F6MzBwZGdsbmVzbWduIn0.5Mz3cROAenKuKLg9RFIj7A';
+import { WAQI_URL, USER_INFO_MOW_URL, MAPBOX_URL } from './constans.js';
 
 class Api {
-    constructor() {
-        this.location = [];
-    }
-    async wrapFetchCall( url, spareUrl ) {
+    async wrapFetchCall( url, spareUrl = '' ) {
         try {
             let controller = new AbortController()
-            setTimeout(() => controller.abort(), 3000);  // abort after 3 seconds
+            setTimeout(() => controller.abort(), 3000); 
             let resp = await fetch(url, {signal: controller.signal});
-            console.log(resp)
+
             if (!resp && spareUrl || resp.status != 'ok' && spareUrl) {
                 resp = await fetch(spareUrl);
             } else if (!resp && spareUrl || resp.status != 'ok' && spareUrl) {
@@ -20,28 +16,17 @@ class Api {
 
             return await resp.json();
         } catch (e) {
-            let resp = await fetch(spareUrl);
-            console.log(resp)
             console.log(e);
-            return await resp.json();
-        }
-    }
 
-    getWaqi = async () => {
-        try {
-            //const url = 'https://api.waqi.info/map/bounds/?latlng=0,0.091230,90,180.784382&token=9120f123f86a8763aaf5c82d32ce313797553c24';
-            //const response = await fetch('https://api.waqi.info/map/bounds/?latlng=0,0.091230,90,180.784382&token=9120f123f86a8763aaf5c82d32ce313797553c24');
-            const response = await fetch('src/modules/api-waqi.json');
-            const body = await response.json();
-            return body.data;
-        }
-        catch (e) {
-            console.error(e);
+            if(spareUrl) {
+                let resp = await fetch(spareUrl);  
+                return await resp.json();
+            }
         }
     }
 
     getCity = async (lat, lon, aqi) => {
-        const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${lon}, ${lat}.json?access_token=${accessToken}`; 
+        const url = MAPBOX_URL(lat, lon); 
         try {
             const response = await fetch(url);
             const body = await response.json();
@@ -59,41 +44,9 @@ class Api {
             if (!result.includes(el)) {
                 result.push(el);
             }
+
             if (result.length === 5) return result;
         }
-    }
-
-    getUserInfoNow = async () => {
-        try {
-            const response = await fetch('https://api.waqi.info/feed/here/?token=9120f123f86a8763aaf5c82d32ce313797553c24');
-            const body = await response.json();
-            return body.data;
-        }
-        catch (e) {
-            console.error(e);
-        }
-    }
-
-    getStation = async (station) => {
-        try {
-            const response = await fetch(`https://api.waqi.info/feed/@${station}/?token=9120f123f86a8763aaf5c82d32ce313797553c24`);
-            const body = await response.json();
-            return body;
-        }
-        catch (e) {
-            console.error(e);
-        } 
-    }
-
-    getSearchInfo = async (keyword) => {
-        try {
-            const response = await fetch(`https://api.waqi.info/search/?token=9120f123f86a8763aaf5c82d32ce313797553c24&keyword=${keyword}`);
-            const body = await response.json();
-            return body;
-        }
-        catch (e) {
-            console.error(e);
-        } 
     }
 
     async getUserLocation() {
@@ -109,7 +62,7 @@ class Api {
             console.log(message);
         }
         if (navigator.geolocation) {
-            const geoObj = navigator.geolocation.getCurrentPosition(success.bind(this), error, {
+            navigator.geolocation.getCurrentPosition(success.bind(this), error, {
                 enableHighAccuracy: true
             }) 
         }
@@ -136,8 +89,8 @@ class Api {
     }
 
     prepareTableData = async () => {
-        const obj = await this.getWaqi();
-        let data = await filterArr(sortObj(obj));
+        const obj = await this.wrapFetchCall(WAQI_URL);
+        let data = await filterArr(sortObj(obj.data));
 
         const dirtyCities = await this.getCities(data);
         const cleanCities = await this.getCities(data.reverse());
@@ -145,9 +98,9 @@ class Api {
     }
 
     async prepareChartData() {
-        const infoNow = await this.getUserInfoNow();
+        const infoNow = await this.wrapFetchCall(USER_INFO_MOW_URL);
 
-        const chartData = await this.getUserInfoHistory(infoNow.city.geo[0], infoNow.city.geo[1]);
+        const chartData = await this.getUserInfoHistory(infoNow.city?.geo[0], infoNow.city?.geo[1]);
         return { chartData, infoNow };
     }
 }
