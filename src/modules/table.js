@@ -1,14 +1,12 @@
 import { playSound, getAncestor, getDescendant, randomArr, makeElem, sortObj } from './utils.js';
-import Api from './api.js';
 import './../styles/table.css'
 
 
 export default {
-    async init() {
+    async init(api) {
         const tableCity = makeElem('div', 'table-city');
         const tableAqi = makeElem('div', 'table-aqi');
         const tableContainer = document.querySelector('.left-container');
-        const api = new Api();
         const {dirtyCities, cleanCities} = await api.prepareTableData();
         const $table = makeElem('div', 'table-container', );
         const $dirtyCities = makeElem('div', 'table-dirty');

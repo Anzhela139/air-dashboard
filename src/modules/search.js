@@ -1,10 +1,8 @@
-import { playSound, getAncestor, getDescendant, randomArr, makeElem, sortObj, filterArr, getIaqi, colorize, makeinnerHTMLElfromArr, get5Smallest, get5Biggest, groupObj, extractDataArr, compressDataForChart, getDynDates } from './utils.js';
-import Api from './api.js';
+import { makeElem, colorize, } from './utils.js';
 import './../styles/search.css';
 
-const api = new Api();
 // по мотивам https://aqicn.org/json-api/demo/
-const search = async (keyword, output) => {
+const search = async (keyword, output, api) => {
     output.innerHTML = '<h2>Search results:</h2>';
     output.appendChild(makeElem('div', '', 'Loading...'));
     output.appendChild(makeElem('div', ['cp-spinner', 'cp-meter']));
@@ -88,15 +86,15 @@ export default {
         token: '9120f123f86a8763aaf5c82d32ce313797553c24',
     },
 
-    async init() {
+    async init(api) {
         let timer = null;
         this.elements.input = makeElem('input', 'input-search');
         this.elements.output = makeElem('div', 'output-search');
         document.querySelector('.left-container').prepend(this.elements.input);
-        this.elements.input.after(this.elements.output)
+        this.elements.input.after(this.elements.output);
         this.elements.input.addEventListener('keyup', function (e, ) {
             //if (timer) clearTimeout(timer);
-            search(this.value, document.querySelector('.output-search'))
+            search(this.value, document.querySelector('.output-search'), api)
             //timer = setTimeout(function () {search(this.value, document.querySelector('.output-search'))}, 250);
         });
    }

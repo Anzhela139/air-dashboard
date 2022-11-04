@@ -1,3 +1,5 @@
+import { makeElem, } from './utils.js';
+
 export default {
   elements: {
     wrapperHeader: null,
@@ -24,6 +26,5 @@ export default {
     this.elements.wrapperHeader.appendChild(this.elements.title);
     this.elements.title.appendChild(this.elements.h1);
     this.elements.wrapperHeader.appendChild(this.elements.menuWrapper);
-    const img = document.querySelector('header');
   },
 };

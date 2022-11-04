@@ -1,12 +1,10 @@
-import { playSound, getAncestor, getDescendant, randomArr, makeElem, sortObj, filterArr, getIaqi, makeHTMLElfromArr, get5Smallest, get5Biggest, groupObj, extractDataArr, compressDataForChart, getDynDates } from './utils.js';
-import Api from './api.js';
+import { makeElem, getIaqi, makeHTMLElfromArr, extractDataArr, compressDataForChart, getDynDates } from './utils.js';
 import './../styles/chart.css';
 
 export default {
-    async init() {
+    async init(api) {
         const canvas = makeElem('canvas', 'canvas');
         const chartContainer = document.querySelector('.bottom-container');
-        const api = new Api();
         const { chartData, infoNow } = await api.prepareChartData();
 
         const legend = makeElem('div', 'user-info');
@@ -87,7 +85,7 @@ export default {
                   { 
                     data: res[8],
                     label: "NH3",
-                    borderColor: "#FFD540",
+                    borderColor: "#40ff80",
                     fill: false
                   }                  
                 ]

@@ -1,27 +1,29 @@
-import { playSound, getAncestor, getDescendant, randomArr, makeElem, sortObj, filterArr, get5Smallest, get5Biggest, groupObj } from './utils.js';
+import { sortObj, filterArr } from './utils.js';
 
 const accessToken = 'pk.eyJ1IjoiYW56aGVsYTEzOSIsImEiOiJja2lzbjVobGkwZ2F6MzBwZGdsbmVzbWduIn0.5Mz3cROAenKuKLg9RFIj7A';
 
 class Api {
-    getOpenWeather = async () => {
-        try {
-            const response = await fetch('http://api.openweathermap.org/data/2.5/air_pollution?lat=50&lon=50&appid=3368d25e656a521f14b4de50a62fbd93');
-            const body = await response.json();
-            return body;
-        }
-        catch (e) {
-            console.error(e);
-        }
+    constructor() {
+        this.location = [];
     }
-
-    getAirVisual = async () => {
+    async wrapFetchCall( url, spareUrl ) {
         try {
-            const response = await fetch('http://api.airvisual.com/v2/countries?key=86703661-afa6-4052-ad13-8da523b06ef0');
-            const body = await response.json();
-            return body;
-        }
-        catch (e) {
-            console.error(e);
+            let controller = new AbortController()
+            setTimeout(() => controller.abort(), 3000);  // abort after 3 seconds
+            let resp = await fetch(url, {signal: controller.signal});
+            console.log(resp)
+            if (!resp && spareUrl || resp.status != 'ok' && spareUrl) {
+                resp = await fetch(spareUrl);
+            } else if (!resp && spareUrl || resp.status != 'ok' && spareUrl) {
+                throw new Error(`HTTP error! status: ${resp.status}`);
+            }
+
+            return await resp.json();
+        } catch (e) {
+            let resp = await fetch(spareUrl);
+            console.log(resp)
+            console.log(e);
+            return await resp.json();
         }
     }
 
@@ -87,7 +89,6 @@ class Api {
         try {
             const response = await fetch(`https://api.waqi.info/search/?token=9120f123f86a8763aaf5c82d32ce313797553c24&keyword=${keyword}`);
             const body = await response.json();
-            console.log(`https://api.waqi.info/search/?token=9120f123f86a8763aaf5c82d32ce313797553c24&keyword=${keyword}`)
             return body;
         }
         catch (e) {
@@ -95,24 +96,39 @@ class Api {
         } 
     }
 
-    getUserLocation = async () => {
-        let position = {};
-        if (navigator.geolocation) {
-            position = navigator.geolocation.getCurrentPosition((position) => position);   
+    async getUserLocation() {
+        function success({ coords }) {
+            const { latitude, longitude } = coords;
+            window.userLocation = {
+                latitude: latitude, 
+                longitude: longitude
+            };
         }
-        console.log(position);
-        return position;
+          
+        function error({ message }) {
+            console.log(message);
+        }
+        if (navigator.geolocation) {
+            const geoObj = navigator.geolocation.getCurrentPosition(success.bind(this), error, {
+                enableHighAccuracy: true
+            }) 
+        }
     }
 
     getUserInfoHistory = async (lat, lon) => {
         try {
-            //const url = `http://api.openweathermap.org/data/2.5/air_pollution/history?lat=${lat}&lon=${lon}&start=${startTimestamp}&end=${endTimestamp}&appid=3368d25e656a521f14b4de50a62fbd93`;
+            console.log(window.userLocation)
             const endTimestamp = + new Date();
             const startTimestamp = endTimestamp - 259200;
-            let response = await fetch(`https://api.openweathermap.org/data/2.5/air_pollution/history?lat=${lat}&lon=${lon}&start=${startTimestamp}&end=${endTimestamp}&appid=3368d25e656a521f14b4de50a62fbd93`);
-            if (!response  || response.status != 'ok') response = await fetch('src/modules/api-history.json');
-            const body = await response.json();
-            return body;
+            const response = await this.wrapFetchCall(
+                `https://api.openweathermap.org/data/2.5/air_pollution/history?lat=${
+                    window.userLocation?.latitude || lat
+                }&lon=${
+                    window.userLocation?.longitude || lon
+                }&start=${startTimestamp}&end=${endTimestamp}&appid=3368d25e656a521f14b4de50a62fbd93`, 
+                'src/modules/api-history.json'
+            )
+            return response;
         }
         catch (e) {
             console.error(e);
@@ -122,14 +138,13 @@ class Api {
     prepareTableData = async () => {
         const obj = await this.getWaqi();
         let data = await filterArr(sortObj(obj));
-        let dataReverse = await data.reverse();
 
         const dirtyCities = await this.getCities(data);
         const cleanCities = await this.getCities(data.reverse());
         return {dirtyCities, cleanCities};
     }
 
-    prepareChartData = async () => {
+    async prepareChartData() {
         const infoNow = await this.getUserInfoNow();
 
         const chartData = await this.getUserInfoHistory(infoNow.city.geo[0], infoNow.city.geo[1]);
