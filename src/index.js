@@ -28,7 +28,7 @@ class AirDashboard {
         new myMap();
         Table.init(this.api);
         new AirChart(this.api);
-        Search.init(this.api);
+        new Search(this.api);
 
         setTimeout(() => document.querySelector('.loader').remove(), 5000);
     }

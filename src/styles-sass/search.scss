@@ -10,4 +10,17 @@
     position: absolute;
     background-color: rgba(0, 0, 0, 0.9);
     z-index: 5;
+    max-height: 100%;
+    overflow-y: scroll;
+}
+
+.result {
+    border-collapse: separate;
+    border-spacing: 0 6px;
+    padding: 3px;
+    tr {
+        &:hover {
+            background-color: rgba(10, 10, 10, 0.9);
+        }
+    }
 }

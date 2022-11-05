@@ -4,21 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Cabin+Sketch&display=swap" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Fredericka+the+Great&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
-        integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
-        crossorigin="" />
-    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-    <script src="https://unpkg.com/@sjaakp/leaflet-search@1.0.1/dist/leaflet-search.js"></script>
-    <link rel="stylesheet" href="src/leaflet-search.css">
-    <link href="https://api.mapbox.com/mapbox-gl-js/v2.0.0/mapbox-gl.css" rel="stylesheet" />
+    <link rel="stylesheet" href="src/assets/localPlugins/styles/leaflet.css" />
+    <script src="src/assets/localPlugins/scripts/leaflet.js"></script>
+    <script src="src//assets/localPlugins/scripts/leaflet-search.js"></script>
+    <link rel="stylesheet" href="src/assets/localPlugins/styles/leaflet-search.css">
+    <link href="src/assets/localPlugins/styles/mapbox-gl.css" rel="stylesheet" />
     <link rel="shortcut icon" href="#">
     <title>Air Dashboard</title>
     <add key="webpages:Enabled" value="true" />
-    <link href="dist/main.1e26722339be26ff4363.css" rel="stylesheet">
+    <link href="dist/main.461fa7795f4b1fd10b37.css" rel="stylesheet">
 </head>
 
 <body>
@@ -27,13 +21,26 @@
         <main></main>
         <footer></footer>
     </div>
-    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
-        integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
-        crossorigin=""></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"
-        integrity="sha512-d9xgZrVZpmmQlfonhQUvTR7lMPtO7NkZMkA0ABN3PHCbKA5nqylQ/yWlFAyY6hYgdF1Qh6nYiuADWwKB4C2WSw=="
-        crossorigin="anonymous"></script>
-    <script src="dist/main.c33f4b1ef55ae68c2c2b.js"></script>
+    <div class="loader"><svg class="pl" viewBox="0 0 200 200" width="200" height="200"
+            xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <linearGradient id="pl-grad1" x1="1" y1="0.5" x2="0" y2="0.5">
+                    <stop offset="0%" stop-color="hsl(313,90%,55%)" />
+                    <stop offset="100%" stop-color="hsl(223,90%,55%)" />
+                </linearGradient>
+                <linearGradient id="pl-grad2" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="hsl(313,90%,55%)" />
+                    <stop offset="100%" stop-color="hsl(223,90%,55%)" />
+                </linearGradient>
+            </defs>
+            <circle class="pl__ring" cx="100" cy="100" r="82" fill="none" stroke="url(#pl-grad1)" stroke-width="36"
+                stroke-dasharray="0 257 1 257" stroke-dashoffset="0.01" stroke-linecap="round"
+                transform="rotate(-90,100,100)" />
+            <line class="pl__ball" stroke="url(#pl-grad2)" x1="100" y1="18" x2="100.01" y2="182" stroke-width="36"
+                stroke-dasharray="1 165" stroke-linecap="round" />
+        </svg></div>
+    <script src="src/assets/localPlugins/scripts/Chart.min.js"></script>
+    <script src="dist/main.5c9caab41f1e7b39edf2.js"></script>
 </body>
 
 </html>

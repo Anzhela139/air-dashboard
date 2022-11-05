@@ -90,6 +90,7 @@ class Map {
       fillOpacity: 0.2,
     };
   }
+  
   /**
    * @description - подсвечивает регионы карты и открывает popup при наведении
    */
