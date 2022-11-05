@@ -29,7 +29,7 @@
   color: #ffffff;
   font-weight: 500;
   font-size: 12px;
-  font-family: "Cabin", sans-serif;
+  font-family: inherit;
   text-align: left;
 }
 
@@ -78,7 +78,7 @@
   border-bottom: solid rgb(184, 179, 179) 0.2rem;
   font-size: 1.5rem;
   line-height: 150%;
-  font-family: "Cabin", sans-serif;
+  font-family: inherit;
 }
 
 .more-info {
@@ -155,16 +155,5 @@
     line-height: 100%;
   }
 }
-/* @media screen and (min-width: 300px) and (max-width: 599px) {
-    .table-container {
-        min-width: 50rem;
-        max-width: 59.9rem;  
-    }
-
-    .table-dirty,
-    .table-clean {
-        grid-template-columns: 9fr 1fr;
-    }
-} */
 
 /*# sourceMappingURL=table.css.map */

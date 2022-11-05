@@ -26,7 +26,6 @@ class AirDashboard {
         myHeader.init();
         myBody.init();
         myFooter.init();
-        console.log(this.api)
         new myMap();
         mapLegend.legend();
         Table.init(this.api);

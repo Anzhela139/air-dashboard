@@ -1,8 +1,3 @@
-:root {
-	--hue: 223;
-	--bg: hsl(var(--hue),10%,90%);
-	--fg: hsl(var(--hue),10%,10%);
-}
 .loader {
 	height: 100vh; 
     display: grid;
@@ -20,22 +15,16 @@
 	width: 6.25em;
 	height: 6.25em;
 }
-.pl__ring, .pl__ball {
+
+.pl__ring, 
+.pl__ball {
 	animation: ring 2s ease-out infinite;
 }
+
 .pl__ball {
 	animation-name: ball;
 }
 
-/* Dark theme  */
-@media (prefers-color-scheme: dark) {
-	:root {
-		--bg: hsl(var(--hue),10%,10%);
-		--fg: hsl(var(--hue),10%,90%);
-	}
-}
-
-/* Animation */
 @keyframes ring {
 	from {
 		stroke-dasharray: 0 257 0 0 1 0 0 258;
@@ -47,6 +36,7 @@
 		stroke-dasharray: 0 0 0 0 0 515 0 0;
 	}
 }
+
 @keyframes ball {
 	from, 50% {
 		animation-timing-function: ease-in;

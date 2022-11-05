@@ -9,7 +9,7 @@ const search = async (keyword, output, api) => {
     output.appendChild(makeElem('div', ['cp-spinner', 'cp-meter']));
     const result = await api.wrapFetchCall(SEARCH_URL(keyword));
     output.innerHTML = '<h2>Search results :</h2>';
-    console.log(result)
+
     if (!result || result.status != "ok") {
       output.appendChild(makeElem('div', '', 'Sorry, something wrong happend: '));
       if (result.data) output.appendChild(makeElem('code', '', result.data));

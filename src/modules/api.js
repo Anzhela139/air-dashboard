@@ -70,7 +70,6 @@ class Api {
 
     getUserInfoHistory = async (lat, lon) => {
         try {
-            console.log(window.userLocation)
             const endTimestamp = + new Date();
             const startTimestamp = endTimestamp - 259200;
             const response = await this.wrapFetchCall(
@@ -98,7 +97,8 @@ class Api {
     }
 
     async prepareChartData() {
-        const infoNow = await this.wrapFetchCall(USER_INFO_MOW_URL);
+        const dataNow = await this.wrapFetchCall(USER_INFO_MOW_URL);
+        const infoNow = await dataNow?.data;
 
         const chartData = await this.getUserInfoHistory(infoNow.city?.geo[0], infoNow.city?.geo[1]);
         return { chartData, infoNow };
