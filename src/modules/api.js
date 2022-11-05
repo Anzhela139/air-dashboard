@@ -1,45 +1,47 @@
-import { playSound, getAncestor, getDescendant, randomArr, makeElem, sortObj, filterArr, get5Smallest, get5Biggest, groupObj } from './utils.js';
+import { sortObj, filterArr } from './utils.js';
+import { WAQI_URL, USER_INFO_MOW_URL, MAPBOX_URL } from './constans.js';
 
-const accessToken = 'pk.eyJ1IjoiYW56aGVsYTEzOSIsImEiOiJja2lzbjVobGkwZ2F6MzBwZGdsbmVzbWduIn0.5Mz3cROAenKuKLg9RFIj7A';
-
+/** класс, содержит методы обращения к различным апи */
 class Api {
-    getOpenWeather = async () => {
+    /**
+     * @description - метод обращения к апи, с запасным вариантом локальных данных, 
+     * если основные апи не отвечают, либо отвечают с ошибками
+     * @param {String} url - урл, по которому обращаемся к апи
+     * @param {String} [spareUrl=''] - запасной урл, по которому обращаемся к апи
+     * @return {Array<Object>} - данные, полученные от апи
+     */
+    async wrapFetchCall( url, spareUrl = '' ) {
         try {
-            const response = await fetch('http://api.openweathermap.org/data/2.5/air_pollution?lat=50&lon=50&appid=3368d25e656a521f14b4de50a62fbd93');
-            const body = await response.json();
-            return body;
-        }
-        catch (e) {
-            console.error(e);
+            let controller = new AbortController()
+            setTimeout(() => controller.abort(), 3000); 
+            let resp = await fetch(url, {signal: controller.signal});
+
+            if (!resp && spareUrl || resp.status != 'ok' && spareUrl) {
+                resp = await fetch(spareUrl);
+            } else if (!resp && spareUrl || resp.status != 'ok' && spareUrl) {
+                throw new Error(`HTTP error! status: ${resp.status}`);
+            }
+
+            return await resp.json();
+        } catch (e) {
+            console.log(e);
+
+            if(spareUrl) {
+                let resp = await fetch(spareUrl);  
+                return await resp.json();
+            }
         }
     }
 
-    getAirVisual = async () => {
-        try {
-            const response = await fetch('http://api.airvisual.com/v2/countries?key=86703661-afa6-4052-ad13-8da523b06ef0');
-            const body = await response.json();
-            return body;
-        }
-        catch (e) {
-            console.error(e);
-        }
-    }
-
-    getWaqi = async () => {
-        try {
-            //const url = 'https://api.waqi.info/map/bounds/?latlng=0,0.091230,90,180.784382&token=9120f123f86a8763aaf5c82d32ce313797553c24';
-            //const response = await fetch('https://api.waqi.info/map/bounds/?latlng=0,0.091230,90,180.784382&token=9120f123f86a8763aaf5c82d32ce313797553c24');
-            const response = await fetch('src/modules/api-waqi.json');
-            const body = await response.json();
-            return body.data;
-        }
-        catch (e) {
-            console.error(e);
-        }
-    }
-
+    /**
+     * @description - метод получает данные по конкретному городу
+     * @param {String} lat - ширина координат
+     * @param {String} lon - долгота координат
+     * @param {Object} aqi - данные aqi по этому городу
+     * @return {Array<Object>} - данные по конкретному городу
+     */
     getCity = async (lat, lon, aqi) => {
-        const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${lon}, ${lat}.json?access_token=${accessToken}`; 
+        const url = MAPBOX_URL(lat, lon); 
         try {
             const response = await fetch(url);
             const body = await response.json();
@@ -50,6 +52,11 @@ class Api {
         }
     }
 
+    /**
+     * @description - возвращает список городов для таблицы
+     * @param {Array<Object>} data - небработанный массив городов
+     * @return {Array<Object>} - список городов для таблицы
+     */
     getCities = async (data) => {
         let result = [];
         for (let i = 0; i < data.length; i += 1) {
@@ -57,82 +64,80 @@ class Api {
             if (!result.includes(el)) {
                 result.push(el);
             }
+
             if (result.length === 5) return result;
         }
     }
 
-    getUserInfoNow = async () => {
-        try {
-            const response = await fetch('https://api.waqi.info/feed/here/?token=9120f123f86a8763aaf5c82d32ce313797553c24');
-            const body = await response.json();
-            return body.data;
+    /**
+     * @description - определяет местоположения пользователя
+     */
+    async getUserLocation() {
+        function success({ coords }) {
+            const { latitude, longitude } = coords;
+            window.userLocation = {
+                latitude: latitude, 
+                longitude: longitude
+            };
         }
-        catch (e) {
-            console.error(e);
+          
+        function error({ message }) {
+            console.log(message);
         }
-    }
-
-    getStation = async (station) => {
-        try {
-            const response = await fetch(`https://api.waqi.info/feed/@${station}/?token=9120f123f86a8763aaf5c82d32ce313797553c24`);
-            const body = await response.json();
-            return body;
-        }
-        catch (e) {
-            console.error(e);
-        } 
-    }
-
-    getSearchInfo = async (keyword) => {
-        try {
-            const response = await fetch(`https://api.waqi.info/search/?token=9120f123f86a8763aaf5c82d32ce313797553c24&keyword=${keyword}`);
-            const body = await response.json();
-            console.log(`https://api.waqi.info/search/?token=9120f123f86a8763aaf5c82d32ce313797553c24&keyword=${keyword}`)
-            return body;
-        }
-        catch (e) {
-            console.error(e);
-        } 
-    }
-
-    getUserLocation = async () => {
-        let position = {};
         if (navigator.geolocation) {
-            position = navigator.geolocation.getCurrentPosition((position) => position);   
+            navigator.geolocation.getCurrentPosition(success.bind(this), error, {
+                enableHighAccuracy: true
+            }) 
         }
-        console.log(position);
-        return position;
     }
 
+    /**
+     * @description - возвращает исторические данные чистоты воздуха по местоположению пользователя
+     * @param {String} lat - ширина координат
+     * @param {String} lon - долгота координат
+     * @return {Array<Object>} - исторические данные чистоты воздуха по местоположению пользователя
+     */
     getUserInfoHistory = async (lat, lon) => {
         try {
-            //const url = `http://api.openweathermap.org/data/2.5/air_pollution/history?lat=${lat}&lon=${lon}&start=${startTimestamp}&end=${endTimestamp}&appid=3368d25e656a521f14b4de50a62fbd93`;
             const endTimestamp = + new Date();
             const startTimestamp = endTimestamp - 259200;
-            let response = await fetch(`https://api.openweathermap.org/data/2.5/air_pollution/history?lat=${lat}&lon=${lon}&start=${startTimestamp}&end=${endTimestamp}&appid=3368d25e656a521f14b4de50a62fbd93`);
-            if (!response  || response.status != 'ok') response = await fetch('src/modules/api-history.json');
-            const body = await response.json();
-            return body;
+            const response = await this.wrapFetchCall(
+                `https://api.openweathermap.org/data/2.5/air_pollution/history?lat=${
+                    window.userLocation?.latitude || lat
+                }&lon=${
+                    window.userLocation?.longitude || lon
+                }&start=${startTimestamp}&end=${endTimestamp}&appid=3368d25e656a521f14b4de50a62fbd93`, 
+                'src/modules/spareApis/api-history.json'
+            )
+            return response;
         }
         catch (e) {
             console.error(e);
         }
     }
 
+    /**
+     * @description - возвращает данные для таблицы городов
+     * @return {Object} - данные для таблицы городов
+     */
     prepareTableData = async () => {
-        const obj = await this.getWaqi();
-        let data = await filterArr(sortObj(obj));
-        let dataReverse = await data.reverse();
+        const obj = await this.wrapFetchCall(WAQI_URL);
+        let data = await sortObj(filterArr(obj.data));
 
         const dirtyCities = await this.getCities(data);
         const cleanCities = await this.getCities(data.reverse());
         return {dirtyCities, cleanCities};
     }
 
-    prepareChartData = async () => {
-        const infoNow = await this.getUserInfoNow();
+    /**
+     * @description - возвращает данные для графика
+     * @return {Object} - данные для графика
+     */
+    async prepareChartData() {
+        const dataNow = await this.wrapFetchCall(USER_INFO_MOW_URL);
+        const infoNow = await dataNow?.data;
 
-        const chartData = await this.getUserInfoHistory(infoNow.city.geo[0], infoNow.city.geo[1]);
+        const chartData = await this.getUserInfoHistory(infoNow.city?.geo[0], infoNow.city?.geo[1]);
         return { chartData, infoNow };
     }
 }

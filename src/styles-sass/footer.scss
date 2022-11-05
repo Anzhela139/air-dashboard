@@ -26,6 +26,7 @@ footer {
         display: flex;
         justify-content: space-between;
         align-items: center;
+        width: 100%;
         a, .year {
             @include ref;
             padding-top: 1rem;

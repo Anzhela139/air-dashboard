@@ -1,3 +1,9 @@
+import { makeElem, } from './utils.js';
+
+/**
+ * модуль, который создает DOM header приложения
+ * @module myHeader
+ */
 export default {
   elements: {
     wrapperHeader: null,
@@ -9,14 +15,11 @@ export default {
 
   init() {
     // создаем элементы
-    this.elements.wrapperHeader = document.createElement('div');
-    this.elements.title = document.createElement('div');
-    this.elements.h1 = document.createElement('h1');
-    this.elements.h1.textContent = 'AIR-POLLUTION. Dashboard';
-    this.elements.menuWrapper = document.createElement('div');
-    // добавляем классы
-    this.elements.wrapperHeader.classList.add('wrapper');
-    this.elements.menuWrapper.classList.add('menu-wrapper');
+    this.elements.wrapperHeader = makeElem('div', 'wrapper');
+    this.elements.title = makeElem('div');
+    this.elements.h1 = makeElem('h1', '', 'AIR-POLLUTION. Dashboard');
+    this.elements.menuWrapper = makeElem('div', 'menu-wrapper');
+
 
     // добавляем элементы в DOM
     const header = document.querySelector('header');
@@ -24,6 +27,5 @@ export default {
     this.elements.wrapperHeader.appendChild(this.elements.title);
     this.elements.title.appendChild(this.elements.h1);
     this.elements.wrapperHeader.appendChild(this.elements.menuWrapper);
-    const img = document.querySelector('header');
   },
 };
