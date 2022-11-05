@@ -107,7 +107,7 @@ class Api {
                 }&lon=${
                     window.userLocation?.longitude || lon
                 }&start=${startTimestamp}&end=${endTimestamp}&appid=3368d25e656a521f14b4de50a62fbd93`, 
-                'src/modules/api-history.json'
+                'src/modules/spareApis/api-history.json'
             )
             return response;
         }

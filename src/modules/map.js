@@ -1,7 +1,7 @@
 import '../styles/map.css';
 import L from 'leaflet';
 import 'leaflet-search';
-import geojsonFeature from './countries.json';
+import geojsonFeature from './spareApis/countries.json';
 import { makeElem } from './utils.js';
 
 /** инициализирует карту */
