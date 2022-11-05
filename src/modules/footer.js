@@ -1,7 +1,10 @@
 import { makeElem, } from './utils.js';
 
+/**
+ * модуль, который создает DOM footer приложения
+ * @module myFooter
+ */
 export default {
-
   elements: {
     wrapperFooter: null,
     infoContainer: null,

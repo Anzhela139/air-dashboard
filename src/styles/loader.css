@@ -16,7 +16,8 @@
   height: 6.25em;
 }
 
-.pl__ring, .pl__ball {
+.pl__ring,
+.pl__ball {
   animation: ring 2s ease-out infinite;
 }
 
@@ -24,7 +25,6 @@
   animation-name: ball;
 }
 
-/* Animation */
 @keyframes ring {
   from {
     stroke-dasharray: 0 257 0 0 1 0 0 258;

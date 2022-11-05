@@ -3,12 +3,6 @@ import L from 'leaflet';
 import 'leaflet-search';
 import geojsonFeature from './countries.json';
 
-let geoJsonLayer;
-
-
-
-
-
 class Map {
   constructor() {
     this.geoJsonLayer = null;

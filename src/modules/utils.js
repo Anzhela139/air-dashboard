@@ -1,18 +1,11 @@
-const playSound = (sound) => {
-    sound.currentTime = 0;
-    sound.play();
-}
-
-function getAncestor(el, cls) {
-    while ((el = el.parentElement) && !el.classList.contains(cls));
-    return el;
-}
-
-function getDescendant(el, cls) {
-    while ((el = el.lastElementChild) && !el.classList.contains(cls));
-    return el;
-}
-
+// Полезные функции для AirDashboard
+/**
+ * @description - сжимает массив данных по веществам для графика, 
+ * содержания веществ в воздухе
+ * @param {Array<Number>} arr - масссив изначальных данных
+ * @param {Number} comp - число, до значения которого нужно сжать массив
+ * @return {Array<Number>} - сжатый массив данных по веществам для графика
+ */
 function compressDataForChart(arr, comp) {
     let result = [];
     for (let i = 0; i < comp; i += 1) {
@@ -22,6 +15,11 @@ function compressDataForChart(arr, comp) {
     return result;
 }
 
+/**
+ * @description - возвращает массив значений Iaqi (коэффициента качества воздуха) для графика
+ * @param {Object} obj - объект со значениями Iaqi по местоположению пользователя
+ * @return {Array<String>} - массив значений Iaqi (коэффициента качества воздуха) для графика
+ */
 function getIaqi(obj) {
     let res = [];
     for (const key in obj) {
@@ -32,12 +30,23 @@ function getIaqi(obj) {
     return res;
 }
 
+/**
+ * @description - создает строку DOM с текстовым наполнением из значений массива
+ * @param {Array<String>} arr - массив со значениями - текстовым наполнением
+ * @param {HtmlTagObject} tag - DOM элемент
+ * @return {String} - строка DOM с текстовым наполнением из значений массива
+ */
 function makeHTMLElfromArr(arr, tag) {
     let temp = [];
     arr.map((item) => temp.push(`<${tag}>${item}</${tag}>`))
     return temp.join('');
 }
 
+/**
+ * @description - возвращает массив с датами, до определенной даты
+ * @param {Date} endStamp - конечная дата
+ * @return {Array<Date>} - массив с датами, до определенной даты
+ */
 function getDynDates(endStamp) {
     let result = [];
     for (let  i = 0; i < 6; i += 1) {
@@ -54,6 +63,12 @@ function getDynDates(endStamp) {
     return result.reverse();
 }
 
+/**
+ * @description - возвращает массив данных для графика
+ * @param {Object} obj - объект с данными Iaqi (коэффициента качества воздуха) для графика
+ * @param {Function} func - функция, которая обрабатывает каждый раздел массива для графика
+ * @return {Array<Object>} - массив данных для графика
+ */
 function extractDataArr(obj, func) {
     let dataAqi = [];
     let co = [];
@@ -76,6 +91,7 @@ function extractDataArr(obj, func) {
         pm10.push(item.components.pm10);
         nh3.push(item.components.nh3);
     });
+
     let res = [];
     res.push(func(dataAqi, 6));
     res.push(func(co, 6));
@@ -90,8 +106,13 @@ function extractDataArr(obj, func) {
     return res;
 }
 
-const randomArr = (arr) => arr.slice(0).sort((a, b) => 0.5 - Math.random());
-
+/**
+ * @description - создает элемент DOM с заданными классами и тектовым наполнением
+ * @param {HtmlTagObject} type - тег элемента DOM 
+ * @param {String|Array<String>} [className=''] - одни или несколько классов элемента DOM 
+ * @param {String} [text=''] - тектово наполнение
+ * @return {HTMLElement} - элемент DOM с заданными классами и тектовым наполнением
+ */
 const makeElem = (type, className = '', text = '') => {
     let el = document.createElement(type);
 
@@ -108,48 +129,31 @@ const makeElem = (type, className = '', text = '') => {
     return el;
 }
 
-function sortObj(arr, mean) {
+/**
+ * @description - возвращает отсортированный массив данных aqi по городам мира
+ * @param {Array<Object>} arr - массив данных aqi по городам мира
+ * @return {Array<Object>} - отсортированный массив данных aqi по городам мира
+ */
+function sortObj(arr) {
     return arr.sort((a,b) => (+a.aqi > +b.aqi) ? 1 : ((+b.aqi > +a.aqi) ? -1 : 0)); 
 }
 
-function get5Smallest(arr) {
-    return arr.filter((item) => typeof item === 'number').slice(0, 5);
-}
-
+/**
+ * @description - возвращает отфильрованный от значений без города массив данных aqi по городам мира
+ * @param {Array<Object>} arr -  массив данных aqi по городам мира
+ * @return {Array<Object>} - отфильрованный от значений без города массив данных aqi по городам мира
+ */
 function filterArr(arr) {
     return arr.filter((item) => (!item.aqi.includes('-')));
 }
 
-function get5Biggest(arr) {
-    let res = [];
-    arr.reverse();
-    for (let i = 0; i < arr.length; i += 1) {
-        if (!res.includes(arr[i])) {
-            res.push(arr[i]);
-        } else {
-            res.push([arr[i]])
-        }
-        if (res.length = 5) {
-            return;
-        }
-    }
-    return arr.slice(arr.length - 5, arr.length);
-}
-
-function groupObj(obj) { 
-    data1.reduce((result, {category, value}) => {
-    let target = result.find(row => row.category == category);
-    if(!target) {
-      target = {category, values: []};
-      result.push(target);
-    };
-    target.values.push(value);
-    return result;
-  }, [])
-}
-
-function colorize(aqi, specie = null) {
-    specie = specie || "aqi";
+/**
+ * @description - возвращает подсвеченные результаты поиска
+ * @param {String} aqi - коэффициента качества воздуха
+ * @param {String} [specie="aqi"] - подвид поиска
+ * @return {String|HTMLElement} - подсвеченные результаты поиска
+ */
+function colorize(aqi, specie = "aqi") {
     if (["pm25", "pm10", "no2", "so2", "co", "o3", "aqi"].indexOf(specie) < 0)
       return aqi;
    
@@ -173,4 +177,4 @@ function colorize(aqi, specie = null) {
     return result;
 }
 
-export { playSound, getAncestor, getDescendant, randomArr, makeElem, sortObj, filterArr, get5Smallest, getIaqi, makeHTMLElfromArr, colorize, get5Biggest, groupObj, extractDataArr, compressDataForChart, getDynDates };
+export { makeElem, sortObj, filterArr, getIaqi, makeHTMLElfromArr, colorize, extractDataArr, compressDataForChart, getDynDates };

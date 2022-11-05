@@ -1,5 +1,8 @@
 import { makeElem, } from './utils.js';
-
+/**
+ * модуль, который создает DOM body приложения, включает в себя карту, поиск и график
+ * @module myBody
+ */
 export default {
   elements: {
     wrapperBody: null,

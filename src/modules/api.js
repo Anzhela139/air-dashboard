@@ -1,7 +1,15 @@
 import { sortObj, filterArr } from './utils.js';
 import { WAQI_URL, USER_INFO_MOW_URL, MAPBOX_URL } from './constans.js';
 
+/** класс, содержит методы обращения к различным апи */
 class Api {
+    /**
+     * @description - метод обращения к апи, с запасным вариантом локальных данных, 
+     * если основные апи не отвечают, либо отвечают с ошибками
+     * @param {String} url - урл, по которому обращаемся к апи
+     * @param {String} [spareUrl=''] - запасной урл, по которому обращаемся к апи
+     * @return {Array<Object>} - данные, полученные от апи
+     */
     async wrapFetchCall( url, spareUrl = '' ) {
         try {
             let controller = new AbortController()
@@ -25,6 +33,13 @@ class Api {
         }
     }
 
+    /**
+     * @description - метод обращения к апи, с запасным вариантом локальных данных, 
+     * если основные апи не отвечают, либо отвечают с ошибками
+     * @param {String} url - урл, по которому обращаемся к апи
+     * @param {String} [spareUrl=''] - запасной урл, по которому обращаемся к апи
+     * @return {Array<Object>} - данные, полученные от апи
+     */
     getCity = async (lat, lon, aqi) => {
         const url = MAPBOX_URL(lat, lon); 
         try {
@@ -37,6 +52,13 @@ class Api {
         }
     }
 
+    /**
+     * @description - метод обращения к апи, с запасным вариантом локальных данных, 
+     * если основные апи не отвечают, либо отвечают с ошибками
+     * @param {String} url - урл, по которому обращаемся к апи
+     * @param {String} [spareUrl=''] - запасной урл, по которому обращаемся к апи
+     * @return {Array<Object>} - данные, полученные от апи
+     */
     getCities = async (data) => {
         let result = [];
         for (let i = 0; i < data.length; i += 1) {
@@ -49,6 +71,13 @@ class Api {
         }
     }
 
+    /**
+     * @description - метод обращения к апи, с запасным вариантом локальных данных, 
+     * если основные апи не отвечают, либо отвечают с ошибками
+     * @param {String} url - урл, по которому обращаемся к апи
+     * @param {String} [spareUrl=''] - запасной урл, по которому обращаемся к апи
+     * @return {Array<Object>} - данные, полученные от апи
+     */
     async getUserLocation() {
         function success({ coords }) {
             const { latitude, longitude } = coords;
@@ -68,6 +97,13 @@ class Api {
         }
     }
 
+    /**
+     * @description - метод обращения к апи, с запасным вариантом локальных данных, 
+     * если основные апи не отвечают, либо отвечают с ошибками
+     * @param {String} url - урл, по которому обращаемся к апи
+     * @param {String} [spareUrl=''] - запасной урл, по которому обращаемся к апи
+     * @return {Array<Object>} - данные, полученные от апи
+     */
     getUserInfoHistory = async (lat, lon) => {
         try {
             const endTimestamp = + new Date();
@@ -87,15 +123,29 @@ class Api {
         }
     }
 
+    /**
+     * @description - метод обращения к апи, с запасным вариантом локальных данных, 
+     * если основные апи не отвечают, либо отвечают с ошибками
+     * @param {String} url - урл, по которому обращаемся к апи
+     * @param {String} [spareUrl=''] - запасной урл, по которому обращаемся к апи
+     * @return {Array<Object>} - данные, полученные от апи
+     */
     prepareTableData = async () => {
         const obj = await this.wrapFetchCall(WAQI_URL);
-        let data = await filterArr(sortObj(obj.data));
+        let data = await sortObj(filterArr(obj.data));
 
         const dirtyCities = await this.getCities(data);
         const cleanCities = await this.getCities(data.reverse());
         return {dirtyCities, cleanCities};
     }
-
+    
+    /**
+     * @description - метод обращения к апи, с запасным вариантом локальных данных, 
+     * если основные апи не отвечают, либо отвечают с ошибками
+     * @param {String} url - урл, по которому обращаемся к апи
+     * @param {String} [spareUrl=''] - запасной урл, по которому обращаемся к апи
+     * @return {Array<Object>} - данные, полученные от апи
+     */
     async prepareChartData() {
         const dataNow = await this.wrapFetchCall(USER_INFO_MOW_URL);
         const infoNow = await dataNow?.data;

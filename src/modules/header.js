@@ -1,5 +1,9 @@
 import { makeElem, } from './utils.js';
 
+/**
+ * модуль, который создает DOM header приложения
+ * @module myHeader
+ */
 export default {
   elements: {
     wrapperHeader: null,

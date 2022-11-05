@@ -1,7 +1,10 @@
 import { makeElem } from './utils.js';
 import './../styles/table.css'
 
-
+/**
+ * модуль, который создает DOM table приложения
+ * @module Table
+ */
 export default {
     async init(api) {
         const tableContainer = document.querySelector('.left-container');
@@ -31,7 +34,6 @@ export default {
         $cleanCities.appendChild($cleanCitiesWrapper);
         $table.appendChild($cleanCities);
         tableContainer.appendChild($table);
-        
     },
 };
 
