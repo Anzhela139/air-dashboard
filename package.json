@@ -5,7 +5,7 @@
     "private": true,
     "scripts": {
         "dev": "webpack --mode development",
-        "css-compile": "sass src/styles:src/styles",
+        "css-compile": "sass src/styles-sass:src/styles",
         "build": "webpack --mode production",
         "watch": "webpack --mode development --watch",
         "start": "webpack serve"

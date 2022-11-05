@@ -74,11 +74,10 @@ module.exports = {
                 type: 'asset/img',
             },
 
-            {
-                test: /\.(ttf|woff|woff2|eot)$/,
-                use: ['file-loader']
+            {    
+                test: /\.(woff|woff2|eot|ttf)$/, 
+                use: ['url-loader?limit=100000'] 
             },
-
             {
                 test: /\.m?js$/,
                 exclude: /node_modules/,

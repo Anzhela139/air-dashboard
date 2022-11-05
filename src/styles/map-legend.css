@@ -1,3 +1,15 @@
+@font-face {
+  font-family: "Fredericka the Great";
+  font-weight: 400;
+  font-style: normal;
+  src: url("./../assets/fonts/FrederickatheGreat-Regular.ttf") format("ttf");
+}
+@font-face {
+  font-family: "Cabin";
+  font-weight: 400;
+  font-style: normal;
+  src: url("./../assets/fonts/CabinSketch-Regular.ttf") format("ttf");
+}
 .info-legend {
   display: flex;
 }
