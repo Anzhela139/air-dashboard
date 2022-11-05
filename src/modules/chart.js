@@ -1,7 +1,11 @@
 import { makeElem, getIaqi, makeHTMLElfromArr, extractDataArr, compressDataForChart, getDynDates } from './utils.js';
 import './../styles/chart.css';
 
+/** инициализирует график */
 class AirChart {
+  /**
+   * @param {ClassInstance} api - инстанс класса Api
+   */
   constructor(api) {
     this.api = api;
     this.canvas = null;
@@ -9,6 +13,9 @@ class AirChart {
     this.init();
   }
 
+  /**
+   * @description - инициализирует график
+   */
   async init() {
     if(!this.api) return;
 
@@ -43,6 +50,9 @@ class AirChart {
     this.chartConfig(dynamicDates, res);
   }
 
+  /**
+   * @description - конфиг графика
+   */
   chartConfig( dynamicDates, res ) {
     const myChart = new Chart(this.canvas, {
       type: 'line',

@@ -34,11 +34,11 @@ class Api {
     }
 
     /**
-     * @description - метод обращения к апи, с запасным вариантом локальных данных, 
-     * если основные апи не отвечают, либо отвечают с ошибками
-     * @param {String} url - урл, по которому обращаемся к апи
-     * @param {String} [spareUrl=''] - запасной урл, по которому обращаемся к апи
-     * @return {Array<Object>} - данные, полученные от апи
+     * @description - метод получает данные по конкретному городу
+     * @param {String} lat - ширина координат
+     * @param {String} lon - долгота координат
+     * @param {Object} aqi - данные aqi по этому городу
+     * @return {Array<Object>} - данные по конкретному городу
      */
     getCity = async (lat, lon, aqi) => {
         const url = MAPBOX_URL(lat, lon); 
@@ -53,11 +53,9 @@ class Api {
     }
 
     /**
-     * @description - метод обращения к апи, с запасным вариантом локальных данных, 
-     * если основные апи не отвечают, либо отвечают с ошибками
-     * @param {String} url - урл, по которому обращаемся к апи
-     * @param {String} [spareUrl=''] - запасной урл, по которому обращаемся к апи
-     * @return {Array<Object>} - данные, полученные от апи
+     * @description - возвращает список городов для таблицы
+     * @param {Array<Object>} data - небработанный массив городов
+     * @return {Array<Object>} - список городов для таблицы
      */
     getCities = async (data) => {
         let result = [];
@@ -72,11 +70,7 @@ class Api {
     }
 
     /**
-     * @description - метод обращения к апи, с запасным вариантом локальных данных, 
-     * если основные апи не отвечают, либо отвечают с ошибками
-     * @param {String} url - урл, по которому обращаемся к апи
-     * @param {String} [spareUrl=''] - запасной урл, по которому обращаемся к апи
-     * @return {Array<Object>} - данные, полученные от апи
+     * @description - определяет местоположения пользователя
      */
     async getUserLocation() {
         function success({ coords }) {
@@ -98,11 +92,10 @@ class Api {
     }
 
     /**
-     * @description - метод обращения к апи, с запасным вариантом локальных данных, 
-     * если основные апи не отвечают, либо отвечают с ошибками
-     * @param {String} url - урл, по которому обращаемся к апи
-     * @param {String} [spareUrl=''] - запасной урл, по которому обращаемся к апи
-     * @return {Array<Object>} - данные, полученные от апи
+     * @description - возвращает исторические данные чистоты воздуха по местоположению пользователя
+     * @param {String} lat - ширина координат
+     * @param {String} lon - долгота координат
+     * @return {Array<Object>} - исторические данные чистоты воздуха по местоположению пользователя
      */
     getUserInfoHistory = async (lat, lon) => {
         try {
@@ -124,11 +117,8 @@ class Api {
     }
 
     /**
-     * @description - метод обращения к апи, с запасным вариантом локальных данных, 
-     * если основные апи не отвечают, либо отвечают с ошибками
-     * @param {String} url - урл, по которому обращаемся к апи
-     * @param {String} [spareUrl=''] - запасной урл, по которому обращаемся к апи
-     * @return {Array<Object>} - данные, полученные от апи
+     * @description - возвращает данные для таблицы городов
+     * @return {Object} - данные для таблицы городов
      */
     prepareTableData = async () => {
         const obj = await this.wrapFetchCall(WAQI_URL);
@@ -138,13 +128,10 @@ class Api {
         const cleanCities = await this.getCities(data.reverse());
         return {dirtyCities, cleanCities};
     }
-    
+
     /**
-     * @description - метод обращения к апи, с запасным вариантом локальных данных, 
-     * если основные апи не отвечают, либо отвечают с ошибками
-     * @param {String} url - урл, по которому обращаемся к апи
-     * @param {String} [spareUrl=''] - запасной урл, по которому обращаемся к апи
-     * @return {Array<Object>} - данные, полученные от апи
+     * @description - возвращает данные для графика
+     * @return {Object} - данные для графика
      */
     async prepareChartData() {
         const dataNow = await this.wrapFetchCall(USER_INFO_MOW_URL);

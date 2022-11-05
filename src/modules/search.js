@@ -88,15 +88,12 @@ export default {
     },
 
     async init(api) {
-        let timer = null;
         this.elements.input = makeElem('input', 'input-search');
         this.elements.output = makeElem('div', 'output-search');
         document.querySelector('.left-container').prepend(this.elements.input);
         this.elements.input.after(this.elements.output);
-        this.elements.input.addEventListener('keyup', function (e, ) {
-            //if (timer) clearTimeout(timer);
-            search(this.value, document.querySelector('.output-search'), api)
-            //timer = setTimeout(function () {search(this.value, document.querySelector('.output-search'))}, 250);
+        this.elements.input.addEventListener('keyup', function (e) {
+          search(this.value, document.querySelector('.output-search'), api)
         });
    }
 }
