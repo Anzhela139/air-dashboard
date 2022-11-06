@@ -4,4 +4,4 @@
 
 [Demo](https://anzhelaabitova.github.io/air-dashboard/)
 
-Screenshot ![image info](https://anzhelaabitova.github.io/air-dashboard/screenshot.png)
+Screenshot ![image info](https://anzhelaabitova.github.io/air-dashboard/src/assets/screenshot.png)
