@@ -2,6 +2,6 @@
 
 Приложение, показывающее уровень загрязнения воздуха
 
-[Demo](https://anzhelaabitova.github.io/air-dashboard/)
+[Demo](https://Anzhela139.github.io/air-dashboard/)
 
-Screenshot ![image info](https://anzhelaabitova.github.io/air-dashboard/src/assets/screenshot.png)
+Screenshot ![image info](https://Anzhela139.github.io/air-dashboard/src/assets/screenshot.png)
